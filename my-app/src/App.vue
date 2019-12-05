@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Vheader />
+    <Vheader :seller="seller"/>
     <div class="tab border-1px">
       <div class="tab-item">
         <router-link to="goods">商品</router-link>
@@ -19,7 +19,20 @@
 
 <script>
 import Vheader from "./components/header/headers";
+import axios from 'axios'
 export default {
+  data(){
+    return {
+      seller:{}
+    }
+  },
+ async created () {
+   let {data} = await axios.get('/api/seller')
+   if(data.err === 0){
+     this.seller = data.data
+   }
+   
+  },
   components: {
     Vheader
   }
